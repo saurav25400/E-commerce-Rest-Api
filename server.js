@@ -1,5 +1,6 @@
 import express, { application } from 'express';
 import swagger from 'swagger-ui-express';
+import cors from 'cors';
 import './env.config.js';
 import userRouter from './src/users/routes/user.routes.js';
 import { ApplicationError } from './src/error-handler/Application.error-hanlder.js';
@@ -13,7 +14,12 @@ const app=express();
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-
+var corsOption={
+  origin:'*',
+  methods:['GET','POST','PUT','DELETE','PATCH'],
+  allowedHeaders:['Content-Type','Authorization']
+}
+app.use(cors(corsOption));
 //swagger docs configuration
 
 app.use("/api-docs",swagger.serve,swagger.setup(apiDocs));
