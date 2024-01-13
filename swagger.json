@@ -24,7 +24,7 @@
         }
     },
     "paths":{
-        "/api/users/signup":{
+         "/api/users/signup":{
             "post":{
                 "tags":["Users"],
                 "summary":"User Register",
@@ -54,10 +54,39 @@
                 },
                 "responses":{
                     "201":{
-                        "description":"Ok"
+                        "description":"Ok",
+                        "headers": {
+                            "Access-Control-Allow-Origin": {
+                              "description": "*",
+                              "type": "string"
+                            },
+                            "Access-Control-Allow-Methods": {
+                              "description": "GET,POST,PUT,DELETE,PATCH",
+                              "type": "string"
+                            },
+                            "Access-Control-Allow-Headers": {
+                              "description": "Origin,X-Requested-With,Content-Type,Accept,Authorization",
+                              "type": "string"
+                            }
+                          }
                     },
+                    
                     "400":{
-                        "description":"Invalid Credentials"
+                        "description":"Invalid Credentials",
+                        "headers": {
+                            "Access-Control-Allow-Origin": {
+                              "description": "*",
+                              "type": "string"
+                            },
+                            "Access-Control-Allow-Methods": {
+                              "description": "GET,POST,PUT,DELETE,PATCH",
+                              "type": "string"
+                            },
+                            "Access-Control-Allow-Headers": {
+                              "description": "Origin,X-Requested-With,Content-Type,Accept,Authorization",
+                              "type": "string"
+                            }
+                          }
                     }
                 }
 
