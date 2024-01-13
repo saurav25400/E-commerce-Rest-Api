@@ -14,12 +14,15 @@ const app=express();
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-var corsOption={
-  origin:'*',
-  methods:['GET','POST','PUT','DELETE','PATCH'],
-  allowedHeaders:['Content-Type','Authorization']
-}
-app.use(cors(corsOption));
+app.use(cors());
+
+app.use(function(req,res,next){
+  res.header("Access-Control-Allow-Origin","*");
+  res.header("Access-Control-Allow-Methods","GET","POST","PUT","PATCH","DELETE");
+  res.header("Access-Control-Allow-Headers","Origin,X-Requested-With,Content-Type,Accept,Authorization");
+  next();
+})
+
 //swagger docs configuration
 
 app.use("/api-docs",swagger.serve,swagger.setup(apiDocs));
