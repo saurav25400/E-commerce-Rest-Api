@@ -1,0 +1,262 @@
+{
+
+    "openapi":"3.0.0",
+    "info":{
+        "title":"E-commerce API",
+        "description":"Api for E-Commerce application for Admin to add products",
+        "version":"1.0.0"
+
+    },
+
+    "servers":[
+        {
+            "url":"http://localhost:3200"
+        }
+    ]
+    ,
+    "components":{
+        "securitySchemes":{
+            "JWT":{
+                "in":"header",
+                "name":"Authorization",
+                "type":"apiKey"
+            }
+        }
+    },
+    "paths":{
+        "/api/users/signup":{
+            "post":{
+                "tags":["Users"],
+                "summary":"User Register",
+                "description":"User SignUp api",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "name":{
+                                        "type":"string"
+                                    },
+                                    "password":{
+                                        "type":"string"
+                                    },
+                                    "email":{
+                                        "type":"string"
+                                    },
+                                    "userType":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description":"Ok"
+                    },
+                    "400":{
+                        "description":"Invalid Credentials"
+                    }
+                }
+
+            }
+        },
+        "/api/users/signin":{
+            "post":{
+                "tags":["Users"],
+                "summary":"User SignIn",
+                "description":"User SignIn api",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "email":{
+                                        "type":"string"
+                                    }  ,
+                                    "password":{
+                                        "type":"string"
+                                    },
+                                    "userType":{
+                                        "type":"string"
+                                    } 
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Ok"
+                    },
+                    "400":{
+                        "description":"Invalid Credentials"
+                    }
+                }
+
+            }
+        },
+        "/api/products/create":{
+            "post":{
+                "tags":["Products"],
+                "summary":"create-product",
+                "description":"admin can add product",
+                "security":[
+                    {"JWT":{}}
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "name":{
+                                        "type":"string"
+                                    },
+                                    "quantity":{
+                                        "type":"number"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Ok"
+                       
+                    },
+                    "401":{
+                        "description":"Unauthorised"
+                    }
+                }
+
+            }
+        },
+        "/api/products/get-all":{
+            "get":{
+                "tags":["Products"],
+                "summary":"Get all Product Details",
+                "description":"admin can get all products stored in database",
+                "security":[
+                    {"JWT":{}}
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Ok"
+                    },
+                    "401":{
+                        "description":"unauthorised"
+                    }
+                }
+            }
+        },
+        
+        "/api/products/{id}": {
+            "delete": {
+                "tags": ["Products"],
+                "summary": "delete products Api",
+                "description": "Admin can delete products through productId",
+                "security":[
+                    {"JWT":{}}
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "product id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product successfully deleted"
+                    },
+                    "400": {
+                        "description": "Product deletion failed"
+                    }
+                }
+            }
+        },
+        "/api/products/{id}/update_quantity/": {
+            "post": {
+                "tags": ["Products"],
+                "summary": "Update-product",
+                "description": "admin can update products",
+                "security":[
+                    {"JWT":{}}
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "product id"
+                    },
+                    {
+                        "in": "query",
+                        "name": "quantity",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        },
+                        "description": "product quantity"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Product successfully updated"
+                    },
+                    "400": {
+                        "description": "Product updation failed"
+                    }
+                }
+            }
+        }
+               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+}
